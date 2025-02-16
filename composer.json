@@ -7,5 +7,6 @@
             "criteria\\": "src/"
         }
     },
-    "require": {}
+    "require": {},
+    "license": "MIT"
 }
