@@ -5,62 +5,33 @@ This code is an example of how to implement a product filter in PHP using the cr
 The code retrieves data from a fake product API and filters it according to the parameters provided in the URL.
 */
 
-final class Index 
+final class FilterWithCriteria
 {
 
     private $products = [];
 
-    public function __construct()
+    public function search($data = [])
     {
-        $this->products = $this->get_products(15);
-    }
-
-    public function index()
-    {
+        $params = $this->get_params($_GET);
         $response = array(
             'status' => 'error',
             'data' => [],
             'message' => ''
         );
         try {
-
-            $params = $this->get_params($_GET);
+            if(empty($data)) {
+                throw new Exception("No data provided");
+            }
+            if(empty($params)) {
+                throw new Exception("No parameters provided");
+            }
+            $this->products = $data;
             $response['status'] = 'success';
             $response['data'] = $this->products = $this->filter($this->products, $params);
         } catch (\Throwable $th) {
-            echo "<pre>"; print_r($th); echo "</pre>";
+            $response['message'] = $th->getMessage();
         }
         return json_encode($response);
-    }
-
-    /**
-     * The function `get_products` retrieves a specified quantity of product information from a fake
-     * store API and returns an array of product details.
-     * 
-     * @param qty The `qty` parameter in the `get_products` function represents the quantity of
-     * products that you want to retrieve. This function fetches product data from a fake store API and
-     * creates an array of products with details like name, description, price, and code for the
-     * specified quantity.
-     * 
-     * @return An array of products with 'nombre' (name), 'descripcion' (description), 'precio'
-     * (price), and 'codigo' (id) keys for the specified quantity ().
-     */
-    private function get_products($qty) {
-        $products = [];
-
-        for ($i = 0; $i < $qty; $i++) {
-            $json = file_get_contents('https://fakestoreapi.com/products/' . rand(1, 20));
-            $data = json_decode($json, true);
-
-            $products[] = [
-                'nombre' => $data['title'],
-                'descripcion' => $data['description'],
-                'precio' => $data['price'],
-                'codigo' => $data['id']
-            ];
-        }
-
-        return $products;
     }
 
     /**
@@ -161,9 +132,3 @@ final class Index
 
     }
 }
-
-// Inicializa la clase Index
-$index = new Index();
-echo $index->index();
-
-?>
