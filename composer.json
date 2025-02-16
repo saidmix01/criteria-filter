@@ -1,0 +1,11 @@
+{
+    "name": "saidmix01/criteria-filter",
+    "description": "Una librería de ejemplo en PHP",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "criteria\\": "src/"
+        }
+    },
+    "require": {}
+}
