@@ -1,21 +1,21 @@
-# Product Filter in PHP using Criteria Method
+# Product Filter Library in PHP using Criteria Method
 
 This project is an example of how to implement a product filter in PHP using the criteria method. The code retrieves data from a fake product API and filters it according to the parameters provided in the URL.
 
 ## Description
 
-The project consists of a single PHP class `Index` that retrieves product data from a fake store API and filters it based on various criteria such as sorting, filtering by value, and limiting the number of results.
+The project consists of a PHP class `FilterWithCriteria` that filters product data based on various criteria such as sorting, filtering by value, and limiting the number of results.
 
 ## Features
 
-- Retrieve product data from a fake store API.
 - Filter products based on parameters provided in the URL.
 - Sort products by specified fields in ascending or descending order.
 - Limit the number of results and apply an offset.
 
 ## Usage
 
-To use this project, you need to set up a local server (e.g., XAMPP) and place the `index.php` file in the server's root directory. You can then access the script via a web browser and provide the filtering parameters in the URL.
+To use this library, you need to include the `FilterWithCriteria.php` file in your project and create an instance of the `FilterWithCriteria` class. You can then call the `search` method with the data and parameters to filter the products.
+
 
 ### Example URL
 
@@ -34,17 +34,11 @@ http://localhost/index.php?query[orderBy]=code&query[order]=asc&query[limit]=10&
 
 ## Code Overview
 
-### Class: Index
-
-#### Properties
-
-- `private $products`: An array to store the product data.
+### Class: FilterWithCriteria
 
 #### Methods
 
-- `__construct()`: Initializes the `products` property by calling the `get_products` method.
-- `index()`: Handles the main logic of retrieving and filtering the products, and returns the response as a JSON string.
-- `get_products($qty)`: Retrieves a specified quantity of product information from the fake store API and returns an array of product details.
+- `search($data = [], $params = [])`: Handles the main logic of retrieving and filtering the products, and returns the response as a JSON string.
 - `filter($data, $params)`: Filters an array of data based on specified parameters such as sorting, filtering by value, and limiting the number of results.
 - `get_params($params)`: Extracts and returns specific parameters from an array input.
 
